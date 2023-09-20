@@ -7,4 +7,9 @@ void alternateScreen();
 
 void normalScreen();
 
+void setRawTerminal();
+
+void resetTerminal();
+
+void setCursorPosition(int x, int y);
 #endif
