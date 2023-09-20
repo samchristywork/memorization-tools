@@ -28,4 +28,8 @@ void makeCursorVisible();
 
 void yellow();
 
+int getTerminalWidth();
+
+vector<string> split(string content, char delimiter);
+
 #endif

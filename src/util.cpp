@@ -39,3 +39,24 @@ void makeCursorInvisible() { cout << "\033[?25l"; }
 void makeCursorVisible() { cout << "\033[?25h"; }
 
 void yellow() { cout << "\033[33m"; }
+
+int getTerminalWidth() {
+  struct winsize w;
+  ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+  return w.ws_col;
+}
+
+vector<string> split(string content, char delimiter) {
+  vector<string> result;
+  string current = "";
+  for (unsigned int i = 0; i < content.length(); i++) {
+    if (content[i] == delimiter) {
+      result.push_back(current);
+      current = "";
+    } else {
+      current += content[i];
+    }
+  }
+  result.push_back(current);
+  return result;
+}
