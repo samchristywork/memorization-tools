@@ -1,4 +1,7 @@
 #include <iostream>
+#include <sys/ioctl.h>
+#include <termios.h>
+#include <unistd.h>
 #include <util.h>
 
 void clearScreen() { cout << "\033[2J"; }
@@ -26,3 +29,13 @@ void setCursorPosition(int x, int y) {
   y++;
   cout << "\033[" << y << ";" << x << "H";
 }
+
+void invertColors() { cout << "\033[7m"; }
+
+void resetColors() { cout << "\033[0m"; }
+
+void makeCursorInvisible() { cout << "\033[?25l"; }
+
+void makeCursorVisible() { cout << "\033[?25h"; }
+
+void yellow() { cout << "\033[33m"; }
