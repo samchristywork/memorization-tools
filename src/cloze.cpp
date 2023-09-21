@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <sys/ioctl.h>
+#include <util.h>
+#include <vector>
 
 using namespace std;
 
@@ -41,6 +43,41 @@ bool findNextWord() {
   }
 
   return false;
+}
+
+bool render() {
+  if (!findNextWord()) {
+    return false;
+  }
+
+  makeCursorInvisible();
+
+  setCursorPosition(0, 0);
+  cout << guess << " ";
+
+  for (unsigned int i = 0; i < material.size(); i++) {
+    setCursorPosition(0, i + 1);
+
+    cout << i << " \t";
+
+    for (unsigned int j = 0; j < material[i]->size(); j++) {
+      if (!material[i]->at(j)->heldBack) {
+        cout << material[i]->at(j)->content << " ";
+      } else if (material[i]->at(j)->show) {
+        cout << material[i]->at(j)->content << " ";
+      } else {
+        for (unsigned int k = 0; k < material[i]->at(j)->content.length();
+             k++) {
+          cout << "_";
+        }
+        cout << " ";
+      }
+    }
+  }
+
+  makeCursorVisible();
+
+  return true;
 }
 
 void cloze(int argc, char *argv[]) {
