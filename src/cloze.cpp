@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <sys/ioctl.h>
+#include <termios.h>
+#include <time.h>
+#include <unistd.h>
 #include <util.h>
 #include <vector>
 
@@ -78,6 +81,27 @@ bool render() {
   makeCursorVisible();
 
   return true;
+}
+
+string normalizeString(string s) {
+  string result = "";
+  for (unsigned int i = 0; i < s.length(); i++) {
+    if (s[i] >= 'A' && s[i] <= 'Z') {
+      result += s[i] - 'A' + 'a';
+    } else if (s[i] >= 'a' && s[i] <= 'z') {
+      result += s[i];
+    } else {
+    }
+  }
+  return result;
+}
+
+bool checkGuess(string guess, string answer) {
+  if (guess == "?") {
+    return true;
+  }
+
+  return normalizeString(guess) == normalizeString(answer);
 }
 
 void cloze(int argc, char *argv[]) {
