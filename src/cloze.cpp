@@ -13,7 +13,7 @@ struct Word {
 int currentLine = 0;
 int currentWord = 0;
 string guess;
-string word;
+string answer;
 vector<vector<Word *> *> material;
 
 char *getInput(int *len) {
@@ -26,5 +26,22 @@ char *getInput(int *len) {
 
   return s;
 }
+
+bool findNextWord() {
+  for (unsigned int line = 0; line < material.size(); line++) {
+    for (unsigned int word = 0; word < material[line]->size(); word++) {
+      if (material[line]->at(word)->heldBack == true &&
+          material[line]->at(word)->show == false) {
+        currentLine = line;
+        currentWord = word;
+        answer = material[line]->at(word)->content;
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
 void cloze(int argc, char *argv[]) {
 }
