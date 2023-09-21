@@ -104,5 +104,43 @@ bool checkGuess(string guess, string answer) {
   return normalizeString(guess) == normalizeString(answer);
 }
 
+void eventLoop() {
+  clearScreen();
+  render();
+
+  while (true) {
+    int len;
+    char *s = getInput(&len);
+
+    if (len == 1 && s[0] == 27) {
+      break;
+    } else if (len == 1 && s[0] == 127) {
+      if (guess.length() > 0) {
+        guess = guess.substr(0, guess.length() - 1);
+      }
+      clearScreen();
+    } else if (len == 1 && s[0] == 10) {
+      clearScreen();
+      setCursorPosition(0, 0);
+
+      if (checkGuess(guess, answer)) {
+        material[currentLine]->at(currentWord)->show = true;
+      }
+
+      guess = "";
+    } else if (len == 1) {
+      guess += s[0];
+    } else {
+      printf("%d %d %d %d - %d\n", s[0], s[1], s[2], s[3], len);
+    }
+
+    if (!render()) {
+      break;
+    }
+
+    free(s);
+  }
+}
+
 void cloze(int argc, char *argv[]) {
 }
