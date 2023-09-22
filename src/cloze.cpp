@@ -65,6 +65,7 @@ bool render() {
 
     for (unsigned int j = 0; j < material[i]->size(); j++) {
       if (!material[i]->at(j)->heldBack) {
+        yellow();
         cout << material[i]->at(j)->content << " ";
       } else if (material[i]->at(j)->show) {
         cout << material[i]->at(j)->content << " ";
@@ -75,10 +76,14 @@ bool render() {
         }
         cout << " ";
       }
+      resetColors();
     }
+
+    cout << endl;
   }
 
   makeCursorVisible();
+  setCursorPosition(0, 0);
 
   return true;
 }
