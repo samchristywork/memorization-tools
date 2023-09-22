@@ -188,4 +188,10 @@ void cloze(int argc, char *argv[]) {
 
     material.push_back(line);
   }
+
+  alternateScreen();
+  setRawTerminal();
+  eventLoop();
+  resetTerminal();
+  normalScreen();
 }
