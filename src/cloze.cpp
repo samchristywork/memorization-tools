@@ -61,9 +61,11 @@ bool render() {
 
   for (unsigned int i = 0; i < material.size(); i++) {
     setCursorPosition(0, i + 1);
+    grey();
+    cout << i;
+    resetColors();
 
-    cout << i << " \t";
-
+    setCursorPosition(4, i + 1);
     for (unsigned int j = 0; j < material[i]->size(); j++) {
       if (!material[i]->at(j)->heldBack) {
         cout << material[i]->at(j)->content << " ";
@@ -109,10 +111,6 @@ string normalizeString(string s) {
 }
 
 bool checkGuess(string guess, string answer) {
-  if (guess == "?") {
-    return true;
-  }
-
   return normalizeString(guess) == normalizeString(answer);
 }
 
@@ -139,6 +137,10 @@ void eventLoop() {
         material[currentLine]->at(currentWord)->show = true;
       } else {
         material[currentLine]->at(currentWord)->correct = false;
+      }
+
+      if (guess == "?") {
+        material[currentLine]->at(currentWord)->show = true;
       }
 
       guess = "";
