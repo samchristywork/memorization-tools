@@ -40,6 +40,14 @@ void makeCursorVisible() { cout << "\033[?25h"; }
 
 void yellow() { cout << "\033[33m"; }
 
+void green() { cout << "\033[32m"; }
+
+void red() { cout << "\033[31m"; }
+
+void grey() { cout << "\033[90m"; }
+
+void blue() { cout << "\033[34m"; }
+
 int getTerminalWidth() {
   struct winsize w;
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);

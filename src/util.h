@@ -28,6 +28,14 @@ void makeCursorVisible();
 
 void yellow();
 
+void green();
+
+void red();
+
+void grey();
+
+void blue();
+
 int getTerminalWidth();
 
 vector<string> split(string content, char delimiter);
