@@ -13,6 +13,7 @@ struct Word {
   string content;
   bool heldBack;
   bool show;
+  bool correct;
 };
 
 int currentLine = 0;
@@ -65,13 +66,19 @@ bool render() {
 
     for (unsigned int j = 0; j < material[i]->size(); j++) {
       if (!material[i]->at(j)->heldBack) {
-        yellow();
         cout << material[i]->at(j)->content << " ";
       } else if (material[i]->at(j)->show) {
+        if (material[i]->at(j)->correct) {
+          green();
+        } else {
+          red();
+        }
         cout << material[i]->at(j)->content << " ";
       } else {
         for (unsigned int k = 0; k < material[i]->at(j)->content.length();
              k++) {
+
+          blue();
           cout << "_";
         }
         cout << " ";
@@ -130,6 +137,8 @@ void eventLoop() {
 
       if (checkGuess(guess, answer)) {
         material[currentLine]->at(currentWord)->show = true;
+      } else {
+        material[currentLine]->at(currentWord)->correct = false;
       }
 
       guess = "";
@@ -183,6 +192,7 @@ void cloze(int argc, char *argv[]) {
       Word *word = new Word();
       word->content = parts[j];
       word->heldBack = rand() % 100 < 3;
+      word->correct = true;
       line->push_back(word);
     }
 
