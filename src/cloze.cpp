@@ -159,14 +159,15 @@ void eventLoop() {
 }
 
 void cloze(int argc, char *argv[]) {
-  if (argc < 2) {
-    cout << "Usage: " << argv[0] << " <filename>" << endl;
+  if (argc < 3) {
+    cout << "Usage: " << argv[0] << " <filename> <percent>" << endl;
     return;
   }
 
   srand(time(NULL));
 
   char *filename = argv[1];
+  int percentHeldOut = percentHeldOut = atoi(argv[2]);
 
   FILE *file = fopen(filename, "r");
   if (file == NULL) {
@@ -193,8 +194,11 @@ void cloze(int argc, char *argv[]) {
     for (unsigned int j = 0; j < parts.size(); j++) {
       Word *word = new Word();
       word->content = parts[j];
-      word->heldBack = rand() % 100 < 3;
+      word->heldBack = rand() % 100 < percentHeldOut;
       word->correct = true;
+      if (parts[j].length() == 0) {
+        word->heldBack = false;
+      }
       line->push_back(word);
     }
 
