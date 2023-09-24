@@ -122,4 +122,30 @@ void firstletter(int argc, char *argv[]) {
 
   buffer[size] = 0;
   vector<string> lines = split(string(buffer), '\n');
+
+  int counter = 1;
+  for (unsigned int i = 0; i < lines.size(); i++) {
+    vector<string> parts = split(lines[i], ' ');
+
+    vector<Word *> *line = new vector<Word *>();
+
+    for (unsigned int j = 0; j < parts.size(); j++) {
+      Word *word = new Word();
+      word->content = parts[j];
+      word->heldBack = counter++ % 2 == 0;
+      word->correct = true;
+      if (parts[j].length() == 0) {
+        word->heldBack = false;
+      }
+      line->push_back(word);
+    }
+
+    materialFirstletter.push_back(line);
+  }
+
+  alternateScreen();
+  setRawTerminal();
+  eventLoopFirstletter();
+  resetTerminal();
+  normalScreen();
 }
