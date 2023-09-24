@@ -61,3 +61,27 @@ bool renderFirstletter() {
   makeCursorVisible();
   return true;
 }
+
+void eventLoopFirstletter() {
+  clearScreen();
+  renderFirstletter();
+
+  while (true) {
+    int len;
+    char *s = getInput(&len);
+
+    if (len == 1 && s[0] == 27) {
+      break;
+    } else if (len == 1) {
+      // TODO
+    } else {
+      printf("%d %d %d %d - %d\n", s[0], s[1], s[2], s[3], len);
+    }
+
+    if (!renderFirstletter()) {
+      break;
+    }
+
+    free(s);
+  }
+}
