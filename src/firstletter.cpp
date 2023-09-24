@@ -96,3 +96,30 @@ void eventLoopFirstletter() {
     free(s);
   }
 }
+
+void firstletter(int argc, char *argv[]) {
+
+  if (argc < 2) {
+    cout << "Usage: " << argv[0] << " <filename>" << endl;
+    return;
+  }
+
+  char *filename = argv[1];
+
+  FILE *file = fopen(filename, "r");
+  if (file == NULL) {
+    cout << "Could not open file: " << filename << endl;
+    return;
+  }
+
+  fseek(file, 0, SEEK_END);
+  long size = ftell(file);
+  fseek(file, 0, SEEK_SET);
+
+  char *buffer = (char *)malloc(size + 1);
+  fread(buffer, 1, size, file);
+  fclose(file);
+
+  buffer[size] = 0;
+  vector<string> lines = split(string(buffer), '\n');
+}
