@@ -10,6 +10,9 @@ build/%.o: src/%.cpp
 build/main: build/util.o build/cloze.o build/main.o
 	${CC} $(CFLAGS) build/*.o ${LIBS} -o $@
 
+run: build/main
+	./build/main cloze material.txt 25
+
 .PHONY: clean
 clean:
 	rm -rf build
