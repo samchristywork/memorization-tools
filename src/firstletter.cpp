@@ -73,7 +73,18 @@ void eventLoopFirstletter() {
     if (len == 1 && s[0] == 27) {
       break;
     } else if (len == 1) {
-      // TODO
+      Word *word = materialFirstletter[curLine]->at(curWord);
+      word->show = true;
+      word->correct = word->content[0] == s[0];
+
+      curWord++;
+      if (curWord >= materialFirstletter[curLine]->size()) {
+        curWord = 0;
+        curLine++;
+        if (curLine >= materialFirstletter.size()) {
+          break;
+        }
+      }
     } else {
       printf("%d %d %d %d - %d\n", s[0], s[1], s[2], s[3], len);
     }
