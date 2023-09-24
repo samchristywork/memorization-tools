@@ -68,3 +68,14 @@ vector<string> split(string content, char delimiter) {
   result.push_back(current);
   return result;
 }
+
+char *getInput(int *len) {
+  char *s = new char[4];
+  s[0] = 0;
+  s[1] = 0;
+  s[2] = 0;
+  s[3] = 0;
+  *len = read(STDIN_FILENO, s, 4);
+
+  return s;
+}
