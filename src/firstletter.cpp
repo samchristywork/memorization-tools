@@ -1,50 +1,38 @@
+#include <firstletter.h>
 #include <iostream>
-#include <string>
 #include <util.h>
-#include <vector>
 
 using namespace std;
 
-struct Word {
-  string content;
-  bool heldBack;
-  bool show;
-  bool correct;
-};
-
-unsigned int curLine = 0;
-unsigned int curWord = 0;
-vector<vector<Word *> *> materialFirstletter;
-
-bool renderFirstletter() {
+bool FirstLetter::render() {
   clearScreen();
   setCursorPosition(0, 0);
   makeCursorInvisible();
 
-  for (unsigned int i = 0; i < materialFirstletter.size(); i++) {
+  for (unsigned int i = 0; i < material.size(); i++) {
     setCursorPosition(0, i + 1);
     grey();
     cout << i;
     resetColors();
 
     setCursorPosition(4, i + 1);
-    for (unsigned int j = 0; j < materialFirstletter[i]->size(); j++) {
+    for (unsigned int j = 0; j < material[i]->size(); j++) {
       if (i == curLine && j == curWord) {
         blue();
       }
 
-      if (!materialFirstletter[i]->at(j)->heldBack) {
-        cout << materialFirstletter[i]->at(j)->content << " ";
-      } else if (materialFirstletter[i]->at(j)->show) {
-        if (materialFirstletter[i]->at(j)->correct) {
+      if (!material[i]->at(j)->heldBack) {
+        cout << material[i]->at(j)->content << " ";
+      } else if (material[i]->at(j)->show) {
+        if (material[i]->at(j)->correct) {
           green();
         } else {
           red();
         }
-        cout << materialFirstletter[i]->at(j)->content << " ";
+        cout << material[i]->at(j)->content << " ";
       } else {
-        for (unsigned int k = 0;
-             k < materialFirstletter[i]->at(j)->content.length(); k++) {
+        for (unsigned int k = 0; k < material[i]->at(j)->content.length();
+             k++) {
 
           cout << "_";
         }
@@ -62,9 +50,9 @@ bool renderFirstletter() {
   return true;
 }
 
-void eventLoopFirstletter() {
+void FirstLetter::eventLoop() {
   clearScreen();
-  renderFirstletter();
+  render();
 
   while (true) {
     int len;
@@ -73,15 +61,15 @@ void eventLoopFirstletter() {
     if (len == 1 && s[0] == 27) {
       break;
     } else if (len == 1) {
-      Word *word = materialFirstletter[curLine]->at(curWord);
+      Word *word = material[curLine]->at(curWord);
       word->show = true;
       word->correct = word->content[0] == s[0];
 
       curWord++;
-      if (curWord >= materialFirstletter[curLine]->size()) {
+      if (curWord >= material[curLine]->size()) {
         curWord = 0;
         curLine++;
-        if (curLine >= materialFirstletter.size()) {
+        if (curLine >= material.size()) {
           break;
         }
       }
@@ -89,7 +77,7 @@ void eventLoopFirstletter() {
       printf("%d %d %d %d - %d\n", s[0], s[1], s[2], s[3], len);
     }
 
-    if (!renderFirstletter()) {
+    if (!render()) {
       break;
     }
 
@@ -97,8 +85,7 @@ void eventLoopFirstletter() {
   }
 }
 
-void firstletter(int argc, char *argv[]) {
-
+FirstLetter::FirstLetter(int argc, char *argv[]) {
   if (argc < 2) {
     cout << "Usage: " << argv[0] << " <filename>" << endl;
     return;
@@ -140,12 +127,12 @@ void firstletter(int argc, char *argv[]) {
       line->push_back(word);
     }
 
-    materialFirstletter.push_back(line);
+    material.push_back(line);
   }
 
   alternateScreen();
   setRawTerminal();
-  eventLoopFirstletter();
+  eventLoop();
   resetTerminal();
   normalScreen();
 }
