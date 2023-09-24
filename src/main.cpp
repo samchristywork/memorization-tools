@@ -1,4 +1,5 @@
 #include <cloze.h>
+#include <firstletter.h>
 #include <iostream>
 #include <string>
 
@@ -14,6 +15,8 @@ int main(int argc, char *argv[]) {
 
   if (toolName == "cloze") {
     cloze(argc - 1, argv + 1);
+  } else if (toolName == "firstletter") {
+    firstletter(argc - 1, argv + 1);
   } else {
     cout << "Unknown tool: " << argv[1] << endl;
     return EXIT_FAILURE;
