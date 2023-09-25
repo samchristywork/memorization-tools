@@ -180,14 +180,23 @@ void cloze(int argc, char *argv[]) {
 
     vector<Word *> *line = new vector<Word *>();
 
+    int len = 0;
     for (unsigned int j = 0; j < parts.size(); j++) {
       Word *word = new Word();
       word->content = parts[j];
-      word->heldBack = rand() % 100 < percentHeldOut;
+      word->heldBack = false;
       word->correct = true;
       if (parts[j].length() == 0) {
         word->heldBack = false;
       }
+
+      len += parts[j].length() + 1;
+      if (len > 80) {
+        material.push_back(line);
+        line = new vector<Word *>();
+        len = parts[j].length() + 1;
+      }
+
       line->push_back(word);
     }
 

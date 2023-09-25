@@ -110,7 +110,6 @@ FirstLetter::FirstLetter(int argc, char *argv[]) {
   buffer[size] = 0;
   vector<string> lines = split(string(buffer), '\n');
 
-  int counter = 1;
   for (unsigned int i = 0; i < lines.size(); i++) {
     vector<string> parts = split(lines[i], ' ');
 
@@ -120,11 +119,8 @@ FirstLetter::FirstLetter(int argc, char *argv[]) {
     for (unsigned int j = 0; j < parts.size(); j++) {
       Word *word = new Word();
       word->content = parts[j];
-      word->heldBack = counter++ % 2 == 0;
+      word->heldBack = false;
       word->correct = true;
-      if (parts[j].length() == 0) {
-        word->heldBack = false;
-      }
 
       len += parts[j].length() + 1;
       if (len > 80) {
@@ -137,6 +133,19 @@ FirstLetter::FirstLetter(int argc, char *argv[]) {
     }
 
     material.push_back(line);
+  }
+
+  int counter = 1;
+  for (unsigned int i = 0; i < material.size(); i++) {
+    for (unsigned int j = 0; j < material[i]->size(); j++) {
+      material[i]->at(j)->heldBack = counter % 2 == 0;
+
+      if (material[i]->at(j)->content.length() == 0) {
+        material[i]->at(j)->heldBack = false;
+      }
+
+      counter++;
+    }
   }
 
   alternateScreen();
