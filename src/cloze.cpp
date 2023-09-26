@@ -169,30 +169,7 @@ void cloze(int argc, char *argv[]) {
   buffer[size] = 0;
   vector<string> lines = split(string(buffer), '\n');
 
-  for (unsigned int i = 0; i < lines.size(); i++) {
-    vector<string> parts = split(lines[i], ' ');
-
-    vector<Word *> *line = new vector<Word *>();
-
-    int len = 0;
-    for (unsigned int j = 0; j < parts.size(); j++) {
-      Word *word = new Word();
-      word->content = parts[j];
-      word->heldBack = false;
-      word->correct = true;
-
-      len += parts[j].length() + 1;
-      if (len > 80) {
-        material.push_back(line);
-        line = new vector<Word *>();
-        len = parts[j].length() + 1;
-      }
-
-      line->push_back(word);
-    }
-
-    material.push_back(line);
-  }
+  material = vector<vector<Word *> *>();
 
   for (unsigned int i = 0; i < material.size(); i++) {
     for (unsigned int j = 0; j < material[i]->size(); j++) {

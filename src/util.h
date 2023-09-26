@@ -43,4 +43,6 @@ vector<string> split(string content, char delimiter);
 
 char *getInput(int *len);
 
+void gather(vector<vector<Word *> *> material, vector<string> *lines);
+
 #endif
