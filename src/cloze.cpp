@@ -186,9 +186,6 @@ void cloze(int argc, char *argv[]) {
       word->content = parts[j];
       word->heldBack = false;
       word->correct = true;
-      if (parts[j].length() == 0) {
-        word->heldBack = false;
-      }
 
       len += parts[j].length() + 1;
       if (len > 80) {
@@ -201,6 +198,18 @@ void cloze(int argc, char *argv[]) {
     }
 
     material.push_back(line);
+  }
+
+  for (unsigned int i = 0; i < material.size(); i++) {
+    for (unsigned int j = 0; j < material[i]->size(); j++) {
+      if (rand() % 100 < percentHeldOut) {
+        material[i]->at(j)->heldBack = true;
+      }
+
+      if (material[i]->at(j)->content.length() == 0) {
+        material[i]->at(j)->heldBack = false;
+      }
+    }
   }
 
   alternateScreen();
