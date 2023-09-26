@@ -1,3 +1,4 @@
+#include <data.h>
 #include <iostream>
 #include <string>
 #include <sys/ioctl.h>
@@ -8,13 +9,6 @@
 #include <vector>
 
 using namespace std;
-
-struct Word {
-  string content;
-  bool heldBack;
-  bool show;
-  bool correct;
-};
 
 int currentLine = 0;
 int currentWord = 0;

@@ -1,17 +1,11 @@
 #ifndef FIRSTLETTER_H
 #define FIRSTLETTER_H
 
+#include <data.h>
 #include <string>
 #include <vector>
 
 using namespace std;
-
-struct Word {
-  string content;
-  bool heldBack;
-  bool show;
-  bool correct;
-};
 
 class FirstLetter {
 public:
