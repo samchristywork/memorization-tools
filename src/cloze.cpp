@@ -150,7 +150,7 @@ void cloze(int argc, char *argv[]) {
   srand(time(NULL));
 
   char *filename = argv[1];
-  int percentHeldOut = percentHeldOut = atoi(argv[2]);
+  int percentHeldOut = atoi(argv[2]);
 
   FILE *file = fopen(filename, "r");
   if (file == NULL) {
