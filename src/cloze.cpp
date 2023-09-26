@@ -167,9 +167,10 @@ void cloze(int argc, char *argv[]) {
   fclose(file);
 
   buffer[size] = 0;
-  vector<string> lines = split(string(buffer), '\n');
+  vector<string> *lines = split(string(buffer), '\n');
 
   material = vector<vector<Word *> *>();
+  gather(material, lines);
 
   for (unsigned int i = 0; i < material.size(); i++) {
     for (unsigned int j = 0; j < material[i]->size(); j++) {

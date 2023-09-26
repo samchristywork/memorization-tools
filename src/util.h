@@ -39,7 +39,7 @@ void blue();
 
 int getTerminalWidth();
 
-vector<string> split(string content, char delimiter);
+vector<string> *split(string content, char delimiter);
 
 char *getInput(int *len);
 
