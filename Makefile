@@ -13,6 +13,9 @@ build/main: build/util.o build/cloze.o build/firstletter.o build/main.o
 run: build/main
 	./build/main firstletter material.txt
 
+inotify: build/main
+	while true; do inotifywait -e modify src/*.cpp src/*.h; make run; done
+
 .PHONY: clean
 clean:
 	rm -rf build
