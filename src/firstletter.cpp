@@ -50,6 +50,18 @@ bool FirstLetter::render() {
   return true;
 }
 
+bool caseInsensitiveCompare(char a, char b) {
+  if (a >= 'A' && a <= 'Z') {
+    a += 32;
+  }
+
+  if (b >= 'A' && b <= 'Z') {
+    b += 32;
+  }
+
+  return a == b;
+}
+
 void FirstLetter::eventLoop() {
   clearScreen();
   render();
@@ -63,7 +75,7 @@ void FirstLetter::eventLoop() {
     } else if (len == 1) {
       Word *word = material[curLine]->at(curWord);
       word->show = true;
-      word->correct = word->content[0] == s[0];
+      word->correct = caseInsensitiveCompare(word->content[0], s[0]);
 
       curWord++;
       if (curWord >= material[curLine]->size()) {
