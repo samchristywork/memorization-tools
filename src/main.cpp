@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
   string toolName = argv[1];
 
   if (toolName == "cloze") {
-    cloze(argc - 1, argv + 1);
+    Cloze(argc - 1, argv + 1);
   } else if (toolName == "firstletter") {
     FirstLetter(argc - 1, argv + 1);
   } else {

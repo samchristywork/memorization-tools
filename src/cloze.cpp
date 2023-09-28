@@ -1,3 +1,4 @@
+#include <cloze.h>
 #include <data.h>
 #include <iostream>
 #include <string>
@@ -10,13 +11,7 @@
 
 using namespace std;
 
-int currentLine = 0;
-int currentWord = 0;
-string guess;
-string answer;
-vector<vector<Word *> *> material;
-
-bool findNextWord() {
+bool Cloze::findNextWord() {
   for (unsigned int line = 0; line < material.size(); line++) {
     for (unsigned int word = 0; word < material[line]->size(); word++) {
       if (material[line]->at(word)->heldBack == true &&
@@ -32,7 +27,7 @@ bool findNextWord() {
   return false;
 }
 
-bool render() {
+bool Cloze::render() {
   if (!findNextWord()) {
     return false;
   }
@@ -97,7 +92,7 @@ bool checkGuess(string guess, string answer) {
   return normalizeString(guess) == normalizeString(answer);
 }
 
-void eventLoop() {
+void Cloze::eventLoop() {
   clearScreen();
   render();
 
@@ -141,7 +136,7 @@ void eventLoop() {
   }
 }
 
-void cloze(int argc, char *argv[]) {
+Cloze::Cloze(int argc, char *argv[]) {
   if (argc < 3) {
     cout << "Usage: " << argv[0] << " <filename> <percent>" << endl;
     return;
