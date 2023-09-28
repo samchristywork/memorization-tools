@@ -95,6 +95,7 @@ bool checkGuess(string guess, string answer) {
 void Cloze::eventLoop() {
   clearScreen();
   render();
+  fflush(stdout);
 
   while (true) {
     int len;
@@ -131,6 +132,7 @@ void Cloze::eventLoop() {
     if (!render()) {
       break;
     }
+    fflush(stdout);
 
     free(s);
   }
