@@ -8,6 +8,10 @@ using namespace std;
 int main(int argc, char *argv[]) {
   if (argc < 2) {
     cout << "Usage: " << argv[0] << " <tool> <args>" << endl;
+    cout << endl;
+    cout << "Tools: " << endl;
+    cout << "	cloze" << endl;
+    cout << "	firstletter" << endl;
     return EXIT_FAILURE;
   }
 
